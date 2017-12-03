@@ -1,0 +1,228 @@
+
+
+
+
+
+a {
+  text-decoration: none;
+  color: #red;
+}
+@media (min-width: 992px) {
+
+
+    .btn-group{
+      margin-top: 2vh;
+      margin-bottom: 2vh;
+    }
+    .btn-info{
+      margin-top: 2vh;
+    }
+
+    footer{
+        background-color: #2ecc71;
+        height: 15vh;
+        border-radius: 4px 4px 0px 0px;
+    }
+    .screenone{
+      width: 75%;
+      height: 20%;
+      border: 2px solid black;
+    }
+    .screentwo{
+      width: 75%;
+      height: 30%%;
+      border: 2px solid black;
+    }
+    .screenthree{
+      width: 75%;
+      height: 30%;
+
+    }
+    .table{
+      margin-bottom: 16vh;
+    }
+    #num{
+      margin-top: 2vh;
+      margin-left: 3vh;
+    }
+    #map{
+      height: 80vh;
+      width: 96%;
+    }
+    #mentions{
+      background-color: #2ecc71;
+    }
+    a{
+      text-decoration: none;
+    }
+    .rf{
+      width: 10vw;
+      height: 8vh;
+    }
+    .bfc{
+      margin-top: 1vh;
+      margin-left: 1vw;
+      width: 10vw;
+      height: 8vh;
+    }
+    .draaf{
+      margin-top: 1vh;
+      width: 10vw;
+      height: 9vh;
+    }
+    .proforet{
+        width: 10vw;
+        height: 6vh;
+    }
+    img{
+      width: 75%;
+      height: 20%;
+    }
+
+}
+@media (min-width: 441px) and (max-width: 991px){
+
+
+
+
+      .btn-group{
+        margin-top: 2vh;
+        margin-bottom: 2vh;
+      }
+      .btn-info{
+        margin-top: 2vh;
+      }
+      .screenone{
+        width: 75%;
+        height: 20%;
+        border: 2px solid black;
+      }
+      .screentwo{
+        width: 75%;
+        height: 30%%;
+        border: 2px solid black;
+      }
+      .screenthree{
+        width: 75%;
+        height: 30%;
+
+      }
+      #num{
+        margin-top: 5px;
+        margin-left: 13vh;
+        margin-bottom: 2vh;
+      }
+      #map{
+        height: 80vh;
+        width: 70vh;
+      }
+      #mentions{
+        background-color: #2ecc71;
+      }
+      footer{
+          background-color: #2ecc71;
+          height: 15vh;
+          border-radius: 4px 4px 0px 0px;
+      }
+      .rf{
+        width: 20vw;
+        height: 8vh;
+      }
+      .bfc{
+        width: 20vw;
+        height: 8vh;
+      }
+      .draaf{
+        margin-top: 1vh;
+        width: 20vw;
+        height: 9vh;
+      }
+      .proforet{
+          width: 20vw;
+          height: 6vh;
+      }
+      img{
+        width: 75%;
+        height: 20%;
+      }
+      .table{
+        margin-bottom: 20vh;
+      }
+
+    }
+
+@media (min-width: 320px) and (max-width: 440px) {
+
+      .progress{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100;
+        height: 4px;
+      }
+      .btn-group{
+        margin-top: 2vh;
+        margin-left: 4.5vh;
+        margin-bottom: 2vh;
+      }
+      .btn-info{
+        margin-top: 2vh;
+      }
+      .screenone{
+        width: 99vw;
+        height: 12vh;
+        border: 2px solid black;
+      }
+      .screentwo{
+        width: 75vw;
+        height: 41vh;
+        border: 2px solid black;
+        margin-left: 11vw;
+      }
+      .screenthree{
+        width: 85vw;
+        height: 28vh;
+        margin-left: 7vw;
+        border: 2px solid black;
+      }
+      #map{
+        height: 75vh;
+        width: 90vw;
+      }
+      #num{
+        margin-top: 5px;
+        margin-left: 13vh;
+        margin-bottom: 2vh;
+      }
+      #mentions{
+        background-color: #2ecc71;
+        width: 85vw;
+      }
+      footer{
+        background-color: #2ecc71;
+        height: 20vh;
+        border-radius: 4px 4px 0px 0px;
+      }
+      .rf{
+        width: 20vw;
+        height: 8vh;
+      }
+      .bfc{
+        width: 20vw;
+        height: 8vh;
+      }
+      .draaf{
+        margin-top: 1vh;
+        width: 20vw;
+        height: 9vh;
+      }
+      .proforet{
+          width: 20vw;
+          height: 6vh;
+      }
+      .table{
+        margin-bottom: 20vh;
+      }
+
+}

@@ -1,0 +1,210 @@
+
+<!DOCTYPE html>
+ <html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <title>SOS en forêt</title>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/leaflet.css" rel="stylesheet">
+        <link href="css/leaflet-gps.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body class="container">
+        <header>
+          <nav class="navbar navbar-default" role="navigation">
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="#">SOS en Forêt</a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                  <ul class="nav navbar-nav">
+                      <li class="active"><a href="#">Accueil</a></li>
+                      <li><a href="advice.html">Conseil d'utilisation</a></li>
+                  </ul>
+              </div>
+          </nav>
+        </header>
+        <main>
+          <h2 class="text-left"></h2>
+          <section id="description" class="text-left">
+                <div class="alert alert-info alert-dismissable" id="ok">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong><h4>Que ce que c'est ?</h4></strong>
+                <p>SOS en forêt est un service permettant de localiser les Points de Rassemblement des Secours sur une carte <strong>avec ou sans connexion internet.</strong></p>
+                </div>
+          </section>
+
+          <section class="row">
+                <div class="center-block" id="map"></div>
+          </section>
+          <section class="row">
+                <div class="btn-group btn-group-xs col-md-4 col-xs-11">
+                  <button class="btn btn-primary" dataloading-test="Sauvegarde.." id="save" type="button" onclick="seed()">Sauvegarder ma carte</button>
+                  <button class="btn btn-primary" dataloading-test="Calcul en cours.." id="nav" type="button" onclick="updateCheckParcours()">Suivre mon Déplacement</button>
+                </div>
+          <button class="btn btn btn-danger col-xs-6 col-md-4" dataloading-test="numerotation.." id="num" type="button">
+                  <a href="tel:112">appeler les secours</a>
+          </button>
+
+            </section>
+        </main>
+        <footer class="container-fluid" class="navbar-fixed-bottom">
+            <button type="button" class="btn-sm btn-info" data-toggle="collapse" data-target="#mentions">Mentions légales</button>
+            <p id="mentions" class="text-center collapse">Association PRO FORÊT - Maison de la forêt et du bois
+               06.74.91.15.53 - 20 rue François Villon 25041 Besançon Cedex - site héberger par
+            <a href="https://www.soyoustart.com/fr/">www.soyoustart.com</a></p>
+              <img class="bfc" src="css/images/Logo_BFC.JPG" alt="region bourgogne franche-comté">
+              <img class="rf"src="css/images/Logo_RF.jpg" alt="République Française">
+              <img class="proforet" src="css/images/Logo_PF_texte_Fond-blanc.jpg" alt="Pro Forêt">
+        </footer>
+        <script src="sw.js"></script>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/leaflet-gps.js"></script>
+        <script src="js/pouchdb-6.1.2.js"></script>
+        <script src="js/tile_cached.js"></script>
+
+    </body>
+    <script>
+
+        var map = L.map('map').locate({setView: true, zoom:12});
+        var layer = L.tileLayer('https://servertiles/osm_tiles/{z}/{x}/{y}.png', {
+            maxZoom: 15,
+            minZoom:12,
+            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+            id: 'examples.map-i875mjb7',
+            useCache: true,
+            crossOrigin: true
+        });
+/*-------------------------------  TEST DEPLACEMENT--------------------------------*/
+        function checkParcours() {
+            map.addControl(new L.Control.Gps({
+
+                }));
+        }
+        function updateCheckParcours(){
+            setTimeout(checkParcours,2000);
+        }
+/*----------------------------------------------------------------------------------*/
+        // Listen to cache hits and misses and spam the console
+        // The cache hits and misses are only from this layer, not from the WMS layer.
+        layer.on('tilecachehit',function(ev){
+            console.log('Cache hit: ', ev.url);
+        });
+        layer.on('tilecachemiss',function(ev){
+            console.log('Cache miss: ', ev.url);
+        });
+        layer.on('tilecacheerror',function(ev){
+            console.log('Cache error: ', ev.tile, ev.error);
+        });
+        layer.addTo(map);
+
+// ------------------------------- TEST D'ETAT DE CHARGEMENT BOUTTON -------------------------------------------/
+      $('#save').click(function () {
+            var btn = $(this);
+            btn.button('loading'), setTimeout(function () {
+            btn.button('reset')
+          }, 2000)
+                              })
+      $('#nav').click(function () {
+            var btn = $(this);
+            btn.button('loading'), setTimeout(function () {
+            btn.button('reset')
+            }, 3000)
+            })
+// ------------------------------------------------------------------------------------------------------------------
+        // Seed the base layer,  if a remote checkpoint exists.for the whole world, for zoom levels 0 through 4.
+        function seed() {
+            var bbox = map.getBounds();
+            layer.seed( bbox, 12, 14 );
+        }
+
+        // Display seed progress on console
+        layer.on('seedstart', function(seedData){
+            var $progressBarContainer = $('<div/>').attr('class', 'progress');
+            $progressBarContainer.append($('<div/>').attr('class', 'progress-bar progress-bar-success progress-bar-striped'));
+            $progressBarContainer.appendTo($('body'));
+        })
+        layer.on('seedprogress', function(seedData){
+            var percent = 100 - Math.floor(seedData.remainingLength / seedData.queueLength * 100);
+            console.log('Seeding ' + percent + '% done');
+        });
+        layer.on('seedend', function(seedData){
+            console.log('Seed complete');
+        });
+
+/*-------------------------------CONNECTION A LA BASE DE DONNÉES----------------------------------------*/
+        var localDb = new PouchDB('localDB');
+        var remote = new PouchDB('https://site.fr:81/db');
+        var rep = PouchDB.replicate( remote, localDb,{
+            retry: true,
+
+        }).on('change', function (info) {
+            console.log(info);
+            // handle change
+        }).on('paused', function (err) {
+            console.log(err);
+            // replication paused (e.g. replication up to date, user went offline)
+        }).on('active', function () {
+            // replicate resumed (e.g. new changes replicating, user went back online)
+        }).on('denied', function (err) {
+            console.log(err);
+            // a document failed to replicate (e.g. due to permissions)
+        }).on('complete', function (info) {
+            console.log(info);
+            addMarker();
+            // handle complete
+        }).on('error', function (err) {
+            // handle error
+            console.log(err);
+        });
+
+        remote.info().then(function (info) {
+            console.log(info);
+        })
+        localDb.info().then(function (info) {
+            console.log(info);
+        })
+/*-------------RÉCUPÉRATION DES INFO SUR LES POINTS ET AJOUTS DES MARKER SUR LA CARTE-------------------*/
+       function addMarker(){
+
+        localDb.allDocs({include_docs: true}, function(err, docs) {
+            if (err) {
+                return console.log(err);
+            } else {
+                var prs = docs.rows;
+                prs.forEach(function(element) {
+                    var latitudePrs = element.doc.X.replace(",",".");
+                    var longitudePrs = element.doc.Y.replace(",",".");
+                    var numberPrs = element.doc.NUM;
+                    var location = element.doc.COMMUNE;
+                    var descriptif = element.doc.DESCRIPTIF;
+                    var popup = L.popup({minWidth:100},{keepInView:"true"}).setContent("PRS N° " +numberPrs + "<br />" + "Commune : "+location + "<br />" + "Descriptif : "+descriptif );
+                    var marker = L.marker([longitudePrs , latitudePrs]).addTo(map);
+                    marker.bindPopup(popup);
+                });
+            }
+        });
+       }
+/*----------------------------------TEST NAVIGATEUR SERVICE WORKER--------------------------------------*/
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').then(function(registration) {
+                // registration worked
+                console.log('Registration succeeded. Scope is ' + registration);
+            }).catch(function(error) {
+                // registration failed
+                console.log('Registration failed with ' + error);
+            });
+        };
+    </script>
+</html>

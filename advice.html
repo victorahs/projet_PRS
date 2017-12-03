@@ -1,0 +1,73 @@
+<html lang="fr">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <title>SOS en forêt</title>
+        <link href="css/bootstrap.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+        <script src="sw.js"></script>
+        <script src="js/jquery-3.2.1.min.js"></script>
+    </head>
+    <body class="container">
+        <header>
+          <nav class="navbar navbar-default" role="navigation">
+
+              <div class="navbar-header">
+                  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                      <span class="sr-only">Toggle navigation</span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                  </button>
+                  <a class="navbar-brand" href="index.html">SOS en Forêt</a>
+              </div>
+
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2">
+                  <ul class="nav navbar-nav">
+                      <li><a href="index.html">Accueil</a></li>
+                      <li class="active"><a href="advice.html">Conseils d'utilisations</a></li>
+                  </ul>
+              </div>
+          </nav>
+        </header>
+        <main>
+          <section>
+            <button type="button" class="btn btn-primary" disabled="disabled" name="button">Sauvegarder ma carte</button>
+            <p>Ce bouton vous permet d'enregistrer la partie de la carte désirée directement dans le navigateur, afin qu'elle puisse être parfaitement disponible en cas d'utilisation <strong>sans connexion à internet.</strong></p>
+            <button type="button" class="btn btn-primary" disabled="disabled" name="button">Suivre mon déplacement</button>
+            <p>Ce bouton va permettre à la géolocalisation de suivre vos déplacements en temps réel.</p>
+          </section>
+          <table class="table">
+            <h3>Compatibilité</h3>
+            <thead>
+              <tr>
+                <th>Navigateur Mobile</th>
+                <th>Version</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Android</td>
+                <td>56</td>
+              </tr>
+              <tr>
+                <td>Chrome</td>
+                <td>57</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </main>
+        <footer class="container-fluid" class="navbar-fixed-bottom">
+            <button type="button" class="btn-sm btn-info" data-toggle="collapse" data-target="#mentions">Mentions légales</button>
+            <p id="mentions" class="text-center collapse">Association PRO FORÊT - Maison de la forêt et du bois
+               06.74.91.15.53 - 20 rue François Villon 25041 Besançon Cedex - site héberger par
+            <a href="https://www.soyoustart.com/fr/">www.soyoustart.com</a></p>
+            <img class="bfc" src="css/images/Logo_BFC.JPG" alt="region bourgogne franche-comté">
+            <img class="rf"src="css/images/Logo_RF.jpg" alt="République Française">
+            <img class="proforet" src="css/images/Logo_PF_texte_Fond-blanc.jpg" alt="Pro Forêt">
+        </footer>
+  </body>
+</html>
